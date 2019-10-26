@@ -195,7 +195,22 @@ $(document).ready(function() {
 
     });
 
-    // Game Fucntionality and Results from the user
+    // Game Functionality and Results from the user
+    function results() {
+        stop();
+        $(".Time").empty();
+
+        $(".question").empty();
+        //End Game
+        $(".question").html("<h3>As Season 9 Episode 23 says, Your Fired, It's For The Severance </h3>");
+
+        $(".answer").empty();
+        $(".answer").append("<h3>Uncanny: " + uncanny + "</h3>");
+        $(".answer").append("<h3>Idiot: " + ignorantSlut + "</h3>");
+        $(".answer").append("<h3> Ignorant Slut: " + season10 + "</h3>");
+        // reset.show
+        $(".Reset").show();
+    };
 
 
 });
