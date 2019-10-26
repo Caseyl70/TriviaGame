@@ -90,3 +90,66 @@ var office = [
         officeAns: 2
     },
 ];
+
+
+
+
+// GAME FUNCTIONALITY
+
+$(document).ready(function() {
+    //Inserting reset and start functionality on the buttons tag.
+    $(".Reset").hide();
+    $(".Start").on("click", function() {
+        //Start button
+        $(".Start").hide();
+        selectQ();
+        timerCount();
+        // for loop for questions and user answer
+        for (var i = 0; i < office.length; i++) {
+            empty.push(office[i]);
+        }
+    })
+    $(".Reset").on("click", function() {
+            $(".Reset").hide();
+            $(".answer").empty();
+            $(".question").empty();
+            // for loop for reset button
+            for (var i = 0; i < empty.length; i++) {
+                office.push(empty[i]);
+            }
+            uncanny = 0;
+            ignorantSlut = 0;
+            season10 = 0;
+            timeLeft = false;
+            selectQ();
+            timerCount();
+        })
+        // Timer Count Down
+    function down() {
+        $(".Time").html("<p> Time Left: " + timer + "</p>");
+        timer--;
+        // if statement for when user doesnt answer in time
+        if (timer === 0) {
+            season10++;
+            stop();
+            $(".answer").html("<p> You Ignorant Slut Times Up... The correct answer was: " + select.officeOptions[select.officeAns] + "</p>");
+            selectQ();
+            timer = 25;
+            timerCount();
+        }
+    };
+    // timer Start functionality
+    fucntion startDown() {
+        if (timerLeft) {
+            intervalId = setInterval(down, 1000);
+            timeLeft = true;
+        }
+    };
+    // Timer Stop
+    function stopDown() {
+        clearInterval(intervalId)
+        timeLeft = false;
+    };
+
+
+});
