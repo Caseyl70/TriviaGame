@@ -150,6 +150,52 @@ $(document).ready(function() {
         clearInterval(intervalId)
         timeLeft = false;
     };
+    //Selecting question
+    fucntion selectOffice() {
+        officeQuestions = Math.floor(Math.random() * office.length);
+        selection = office[officeQuestions];
+        // if statement for selction(s)
+        if (selection) {
+            results();
+        } else {
+            $(".question").html("<p>" + selection.officeQuestion + "</p>");
+            // for loop for selection
+            for (var i = 0; i < selection.officeOptions.length; i++) {
+                var userInput = $("<div>");
+                userInput.html(selection.officeOptions[i]);
+                userInput.addClass("userSelect");
+                userInput.attr("input-value", i);
+                $(".question").append(userInput);
+            };
+        }
+    };
+    // click event for user answer
+    $(".question").on("click", ".userSelect", function() {
+        character = parseInt($(this).attr("input-value"));
+        // if else  statement for user choice and selection
+        if (userInput === select.officeAns) {
+            stop();
+            uncanny++;
+            userInput = "";
+            $(".answer").html("<h1>That's What She Said!</h1>");
+            office.splice(officeQuestions, 1);
+            timer = 25;
+            timerCount();
+            selectOffice();
+        } else {
+            stop();
+            ignorantSlut++;
+            userInput = "";
+            $(".answer").html("<h1>Idiot.</h1>");
+            office.splice(officeQuestions, 1);
+            timer = 25;
+            timerCount();
+            selectOffice();
+        }
+
+    });
+
+    // Game Fucntionality and Results from the user
 
 
 });
