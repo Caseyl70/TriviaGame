@@ -210,7 +210,6 @@ $(document).ready(function() {
         $(".answer").append("<h3> Ignorant Slut: " + season10 + "</h3>");
         // reset.show
         $(".Reset").show();
-    };
-
+    }
 
 });
