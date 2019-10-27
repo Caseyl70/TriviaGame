@@ -24,6 +24,12 @@ h2 {
     animation: back 20s linear;
 }
 
+h3 {
+    font-family: 'Times New Roman', Times, serif;
+    color: black;
+    background-color: gold;
+}
+
 button {
     font-size: 20px;
     color: transparent;

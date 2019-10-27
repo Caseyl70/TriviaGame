@@ -1,31 +1,3 @@
-// Varibles 
-// user get answer right
-var uncanny = 0;
-// User gets answer wrong
-var ignorantSlut = 0;
-// User doesnt answer
-var season10 = 0;
-// user select and selction options
-var character = "";
-var q = [];
-var selection;
-var officeQuestions;
-var intervalId;
-//Timer variables
-var timer = 25;
-// runnning timer
-var timeLeft = false; //Set to Boolean.
-// Question cycle
-var officeCount = office.length;
-
-
-
-
-
-
-
-
-
 // Inserting Questions
 
 var office = [
@@ -40,7 +12,7 @@ var office = [
     {
         officeQuestion: " How much did it cost Jim to Impersonate Dwight?",
         officeOptions: ["20 Dollars", "15 Dollars", "34 Dollars", "11 Dollars", "7 Dollars"],
-        officeAns:
+        officeAns: 3
     },
 
     // Question 3
@@ -99,126 +71,131 @@ var office = [
         officeAns: 2
     },
 ];
+//Variables 
+var theOfficeCount = office.length;
+var intervalId;
+// User answers.
+var Uncanny = 0;
+var Idiot = 0;
+var season10 = 0;
+// Timer
+var timer = 20;
+var timerCount = false;
+var shruteSurvivalGuide = "";
+var dwight = [];
+var pam;
+var michael;
+//end variables
 
 
-
-
-// GAME FUNCTIONALITY
-
+// Answers and questions 
 $(document).ready(function() {
-    //Inserting reset and start functionality on the buttons tag.
-    $(".Reset").hide();
-    $(".Start").on("click", function() {
-        //Start button
-        $(".Start").hide();
-        selectQ();
-        timerCount();
-        // for loop for questions and user answer
-        for (var i = 0; i < office.length; i++) {
-            empty.push(office[i]);
-        }
-    })
-    $(".Reset").on("click", function() {
-            $(".Reset").hide();
-            $(".answer").empty();
-            $(".question").empty();
-            // for loop for reset button
-            for (var i = 0; i < empty.length; i++) {
-                office.push(empty[i]);
+    $(".start").on("click", function() {
+            $(".start").hide();
+            officeQuestion();
+            stanleysHeart();
+            //for loop to push the questions through when the user wants to play
+            for (var i = 0; i < dwight.length; i++) {
+                office.push(dwight[i]);
             }
-            uncanny = 0;
-            ignorantSlut = 0;
-            season10 = 0;
-            timeLeft = false;
-            selectQ();
-            timerCount();
         })
-        // Timer Count Down
+        //Reset Function
+    $(".reset").on("click", function() {
+            $(".reset").hide();
+            $(".answer").dwight();
+            $(".question").dwight();
+            //for loop for reset function
+            for (var i = 0; i < dwight.length; i++) {
+                office.push(dwight[i]);
+            }
+            Uncanny = 0;
+            Idiot = 0;
+            season10 = 0;
+            timerCount = false;
+            officeQuestion();
+            stanleysHeart();
+        }) // start timer functionality
+
+    function stanleysHeart() {
+        if (timerCount) {
+            intervalId = setInterval(down, 1000);
+            timerCount = true;
+        }
+    }; //count down functionality for the timer.
     function down() {
-        $(".Time").html("<p> Time Left: " + timer + "</p>");
+        $(".time").html("<h1>Confrence Room In:" + timer + "</h1>");
         timer--;
-        // if statement for when user doesnt answer in time
+        // if Statemment to turn timer count down to 0 and give the user an unanswerd question or a season10 since it doesnt exist.
         if (timer === 0) {
             season10++;
             stop();
-            $(".answer").html("<p> You Ignorant Slut Times Up... The correct answer was: " + select.officeOptions[select.officeAns] + "</p>");
-            selectQ();
-            timer = 25;
-            timerCount();
+            $(".answer").html("<h1> That's What She Said:" + pam.officeOptions[pam.officeAns] + "</h1>");
+            officeQuestion();
+            timer = 20;
+            stanleysHeart();
         }
+
     };
-    // timer Start functionality
-    fucntion startDown() {
-        if (timerLeft) {
-            intervalId = setInterval(down, 1000);
-            timeLeft = true;
-        }
+    // This function will stop the timer.
+    function stop() {
+        clearInterval(intervalId);
+        timerCount = false;
     };
-    // Timer Stops
-    function stopDown() {
-        clearInterval(intervalId)
-        timeLeft = false;
-    };
-    //Selecting question
-    fucntion selectOffice() {
-        officeQuestions = Math.floor(Math.random() * office.length);
-        selection = office[officeQuestions];
-        // if statement for selction(s)
-        if (selection) {
+    // this function will select a qusetion at random so user cannot redo and get the answer correct.
+    function officeQuestion() {
+        michael = Math.floor(Math.random() * office.length);
+        pam = office[officeQuestion];
+        //  inserting if else statement to give user an uncanny or an idiot talley
+        if (pam) {
             results();
         } else {
-            $(".question").html("<p>" + selection.officeQuestion + "</p>");
-            // for loop for selection
-            for (var i = 0; i < selection.officeOptions.length; i++) {
-                var userInput = $("<div>");
-                userInput.html(selection.officeOptions[i]);
-                userInput.addClass("userSelect");
-                userInput.attr("input-value", i);
-                $(".question").append(userInput);
+            $(".question").html("<h1>" + michael.officeQuestion + "</h1>");
+            // user will loop through this data upon answering the question
+            for (var i = 0; i < pam.officeOptions.length; i++) {
+                var officeKnowItAll = $("<div>");
+                officeKnowItAll.addClass("officeSelection");
+                officeKnowItAll.html(pam.officeOptions[i]);
+                officeKnowItAll.attr("user-value", i);
+                $(".question").append(officeKnowItAll);
             };
         }
     };
-    // click event for user answer
-    $(".question").on("click", ".userSelect", function() {
-        character = parseInt($(this).attr("input-value"));
-        // if else  statement for user choice and selection
-        if (userInput === select.officeAns) {
+
+    // officeKnowItAll Selection functionality.
+    $(".question").on("click", ".officeSelection", function() {
+        shruteSurvivalGuide = parseInt($(this).attr("user-value"));
+        // if else statment for when the user either gets the question right or if the user gets the question wrong or uncanny nor Idiot
+        if (shruteSurvivalGuide === pam.officeAns) {
             stop();
-            uncanny++;
-            userInput = "";
-            $(".answer").html("<h1>That's What She Said!</h1>");
-            office.splice(officeQuestions, 1);
-            timer = 25;
-            timerCount();
-            selectOffice();
+            Uncanny++;
+            shruteSurvivalGuide = "";
+            $(".answer").html("<h3>Uncanny</h3>");
+            office.splice(michael, 1);
+            timer = 20;
+            stanleysHeart();
+            officeQuestion();
         } else {
             stop();
-            ignorantSlut++;
-            userInput = "";
-            $(".answer").html("<h1>Idiot.</h1>");
-            office.splice(officeQuestions, 1);
-            timer = 25;
-            timerCount();
-            selectOffice();
+            Idiot++;
+            shruteSurvivalGuide = "";
+            $(".answer").html("<h3>Idiot</h3>");
+            office.splice(michael, 1);
+            timer = 20;
+            stanleysHeart();
+            officeQuestion();
         }
-
     });
-
-    // Game Functionality and Results from the user
+    // ENDGAME...
     function results() {
         stop();
-        $(".Time").empty();
+        $(".time").dwight();
+        $(".question").dwight();
+        $(".question").html("<h3>Season 9 Episode 23 </h3>");
+        $(".answer").dwight();
+        $(".answer").append("<h3>Uncanny:" + Uncanny + "</h3>");
+        $(".answer").append("<h3>Idiot:" + Idiot + "</h3>");
+        $(".answer").append("<h3>Ignorant Slut:" + season10 + "</h3>");
+        $(".reset").show();
 
-        $(".question").empty();
-        //End Game
-        $(".question").html("<h3>As Season 9 Episode 23 says, Your Fired, It's For The Severance </h3>");
-
-        $(".answer").empty();
-        $(".answer").append("<h3>Uncanny: " + uncanny + "</h3>");
-        $(".answer").append("<h3>Idiot: " + ignorantSlut + "</h3>");
-        $(".answer").append("<h3> Ignorant Slut: " + season10 + "</h3>");
-        // reset.show
-        $(".Reset").show();
     }
-
 });
