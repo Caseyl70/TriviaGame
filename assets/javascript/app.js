@@ -38,8 +38,8 @@ var office = [
   // Question 5
   {
     officeQuestion: " Where are the Dundies Hosted Each Year?",
-    officeOptions: ["AppleBee's", "Chili's", "Benihana", "The Office"],
-    officeAns: "Chili's",
+    officeOptions: ["AppleBee's", "Chilis", "Benihana", "The Office"],
+    officeAns: "Chilis",
     image: "assets/images/chilis.webp"
   },
 
